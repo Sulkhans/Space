@@ -21,18 +21,29 @@ export const Authentication = () => {
     });
     return () => checkAuth();
   }, []);
-  return loading ? (
-    <Loading />
-  ) : (
-    <div>
-      {isRegistered ? (
-        <Signin
-          user={user}
-          setUser={setUser}
-          setIsRegistered={setIsRegistered}
-        />
+  return (
+    <div className="h-screen flex items-center justify-center bg-[url('./assets/background.jpg')] bg-[length:350%_350%] animate-bg md:bg-none">
+      {loading ? (
+        <Loading />
       ) : (
-        <Signup setIsRegistered={setIsRegistered} />
+        <>
+          <div className="hidden h-screen md:flex justify-center items-center w-1/2 bg-[url('./assets/background.jpg')] bg-[length:270%_270%] animate-bg shadow-black shadow-2xl">
+            <h1 className="text-white text-8xl font-semibold select-none lg:text-9xl">
+              Space
+            </h1>
+          </div>
+          <div className="flex justify-center items-center md:w-1/2">
+            {isRegistered ? (
+              <Signin
+                user={user}
+                setUser={setUser}
+                setIsRegistered={setIsRegistered}
+              />
+            ) : (
+              <Signup setIsRegistered={setIsRegistered} />
+            )}
+          </div>
+        </>
       )}
     </div>
   );

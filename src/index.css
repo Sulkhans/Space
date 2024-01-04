@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input,
+button {
+  outline: none;
+}
+
+.animate-bg {
+  animation: movement 120s linear infinite;
+}
+@keyframes movement {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
