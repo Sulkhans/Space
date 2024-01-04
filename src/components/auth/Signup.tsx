@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { auth } from "../../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 type SignupProps = {
@@ -8,12 +8,16 @@ type SignupProps = {
 };
 
 export const Signup = ({ setIsRegistered }: SignupProps) => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const signUp = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const acc = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(acc.user, { displayName: name }).catch((err) =>
+        console.log(err)
+      );
       navigate("/Space/home");
     } catch (err) {
       console.error(err);
@@ -21,6 +25,12 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
   };
   return (
     <div>
+      <input
+        type="text"
+        placeholder="First name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <input
         type="text"
         placeholder="Email"
@@ -35,7 +45,7 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
       />
       <button onClick={signUp}>Sign up</button>
       <button onClick={() => setIsRegistered(true)}>
-        already have an account
+        Already have an account? Sign in
       </button>
     </div>
   );

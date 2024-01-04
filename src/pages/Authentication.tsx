@@ -22,7 +22,7 @@ export const Authentication = () => {
     return () => checkAuth();
   }, []);
   return (
-    <div className="h-screen flex items-center justify-center bg-[url('./assets/background.jpg')] bg-[length:350%_350%] animate-bg md:bg-none">
+    <div className="h-screen flex flex-col items-center justify-center bg-[url('./assets/background.jpg')] bg-[length:350%_350%] animate-bg md:bg-none md:flex-row">
       {loading ? (
         <Loading />
       ) : (
@@ -32,7 +32,10 @@ export const Authentication = () => {
               Space
             </h1>
           </div>
-          <div className="flex justify-center items-center md:w-1/2">
+          <h1 className="text-white text-6xl font-semibold select-none mb-8 md:hidden">
+            Space
+          </h1>
+          <div className="flex justify-center items-center bg-white rounded-md p-5 md:bg-transparent md:w-1/2">
             {isRegistered ? (
               <Signin
                 user={user}
