@@ -8,7 +8,6 @@ export const Authentication = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
-  console.log(auth);
   useEffect(() => {
     const checkAuth = auth.onAuthStateChanged((authUser) => {
       if (authUser) {

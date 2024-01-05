@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { handleFirebaseError } from "../../config/firebaseErrors";
 //@ts-ignore
 import Eye from "../../assets/eye.svg?react";
 
@@ -15,18 +16,28 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
-  const format = (str: string) =>
+  const formatName = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
   const signUp = async () => {
+    if (firstName === "" || lastName === "") {
+      setError("Please enter your name");
+      return;
+    }
+    if (/[^a-zA-Z]/.test(firstName) || /[^a-zA-Z]/.test(lastName)) {
+      setError("Names can only contain letters");
+      return;
+    }
     try {
       const acc = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(acc.user, {
-        displayName: format(firstName) + " " + format(lastName),
+        displayName: formatName(firstName) + " " + formatName(lastName),
       }).catch((err) => console.log(err));
       navigate("/Space/home");
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      setError(handleFirebaseError(err.code));
     }
   };
   return (
@@ -63,7 +74,7 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="py-2 rounded-md indent-3 bg-neutral-200 font-medium"
+          className="py-2 rounded-md indent-3 bg-neutral-200 font-medium pr-12"
         />
         <Eye
           className={`absolute w-6 h-6 right-3 cursor-pointer transition-all ${
@@ -72,6 +83,9 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
           onClick={() => setShowPassword(!showPassword)}
         />
       </div>
+      {error && (
+        <p className="text-center text-xs font-bold text-red-600">{error}</p>
+      )}
       <button
         onClick={signUp}
         className="text-white bg-neutral-900 py-2 rounded-md shadow-xl hover:bg-neutral-950 transition-all"
