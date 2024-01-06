@@ -6,14 +6,15 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { handleFirebaseError } from "../../config/firebaseErrors";
+import { userType } from "../../types/types";
 //@ts-ignore
 import Eye from "../../assets/eye.svg?react";
 import Google from "../../assets/google.svg";
-import { handleFirebaseError } from "../../config/firebaseErrors";
 
 type SigninProps = {
   setIsRegistered: React.Dispatch<React.SetStateAction<boolean>>;
-  user: any;
+  user: userType;
   setUser: React.Dispatch<any>;
 };
 
@@ -27,7 +28,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
     if (email === "" && password === "") return;
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/Space/home");
+      navigate("/Space/dashboard");
     } catch (err: any) {
       setError(handleFirebaseError(err.code));
     }
@@ -56,7 +57,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
             Welcome back, {user.displayName && user.displayName.split(" ")[0]}!
           </h1>
           <Link
-            to={"/Space/home"}
+            to={"/Space/dashboard"}
             className="text-center text-white bg-neutral-900 py-2 rounded-md shadow-xl hover:bg-neutral-950 transition-all"
           >
             Go to homepage

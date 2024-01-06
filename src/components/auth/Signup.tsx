@@ -39,7 +39,7 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
       await updateProfile(acc.user, {
         displayName: formatName(firstName) + " " + formatName(lastName),
       }).catch((err) => console.log(err));
-      navigate("/Space/home");
+      navigate("/Space/dashboard");
     } catch (err: any) {
       setError(handleFirebaseError(err.code));
     }

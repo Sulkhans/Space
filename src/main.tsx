@@ -6,10 +6,15 @@ import {
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Authentication } from "./pages/Authentication";
-import { Home } from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <ErrorPage />,
+  },
   {
     path: "/Space/",
     element: <Navigate to={"/Space/auth"} />,
@@ -19,13 +24,12 @@ const router = createBrowserRouter([
     element: <Authentication />,
   },
   {
-    path: "/Space/home",
-    element: <Home />,
-  },
-  {
-    path: "*",
-    element: <ErrorPage />,
-    errorElement: <ErrorPage />,
+    path: "/Space/dashboard",
+    element: (
+      <Layout>
+        <Dashboard />
+      </Layout>
+    ),
   },
 ]);
 
