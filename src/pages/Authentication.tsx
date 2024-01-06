@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Signin } from "../components/auth/Signin";
 import { Signup } from "../components/auth/Signup";
-import { auth } from "../config/firebase";
-import { userType } from "../types/types";
 import Loading from "../components/Loading";
+import useAuthLoad from "../hooks/useAuthLoad";
 
 export const Authentication = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<userType | null>(null);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
-  useEffect(() => {
-    const checkAuth = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        const { displayName, email, photoURL } = authUser;
-        setUser({ email, displayName, photoURL });
-      }
-      setLoading(false);
-    });
-    return () => checkAuth();
-  }, []);
+  const { loading, user, setUser } = useAuthLoad();
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-[url('./assets/background.jpg')] bg-[length:350%_350%] animate-bg md:bg-none md:flex-row">
       {loading ? (
