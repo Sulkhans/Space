@@ -30,6 +30,10 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
       setError("Names can only contain letters");
       return;
     }
+    if (!/[A-Z]/.test(password)) {
+      setError("Password must contain one capital letter");
+      return;
+    }
     try {
       const acc = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(acc.user, {
