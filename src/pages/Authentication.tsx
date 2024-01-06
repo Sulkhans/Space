@@ -2,19 +2,18 @@ import { useEffect, useState } from "react";
 import { Signin } from "../components/auth/Signin";
 import { Signup } from "../components/auth/Signup";
 import { auth } from "../config/firebase";
+import { userType } from "../types/types";
 import Loading from "../components/Loading";
 
 export const Authentication = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<userType | null>(null);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
   useEffect(() => {
     const checkAuth = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        const { uid, displayName, email } = authUser;
-        setUser({ uid, displayName, email });
-      } else {
-        setUser(null);
+        const { displayName, email, photoURL } = authUser;
+        setUser({ email, displayName, photoURL });
       }
       setLoading(false);
     });

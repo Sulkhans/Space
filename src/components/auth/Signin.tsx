@@ -14,7 +14,7 @@ import Google from "../../assets/google.svg";
 
 type SigninProps = {
   setIsRegistered: React.Dispatch<React.SetStateAction<boolean>>;
-  user: userType;
+  user: userType | null;
   setUser: React.Dispatch<any>;
 };
 
