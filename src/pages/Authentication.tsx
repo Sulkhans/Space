@@ -13,7 +13,7 @@ export const Authentication = () => {
         <Loading />
       ) : (
         <>
-          <div className="hidden h-screen md:flex justify-center items-center w-1/2 bg-[url('./assets/background.jpg')] bg-[length:270%_270%] animate-bg shadow-black shadow-2xl">
+          <div className="hidden h-screen md:flex justify-center items-center w-1/2 bg-[url('./assets/background.jpg')] bg-[length:270%_270%] animate-bg shadow-def">
             <h1 className="text-white text-8xl font-semibold select-none lg:text-9xl">
               Space
             </h1>

@@ -6,7 +6,6 @@ input,
 button {
   outline: none;
 }
-
 .animate-bg {
   animation: movement 120s linear infinite;
 }
@@ -20,4 +19,9 @@ button {
   100% {
     background-position: 0% 50%;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
