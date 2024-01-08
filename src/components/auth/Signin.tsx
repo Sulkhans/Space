@@ -36,7 +36,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
   const handleSignInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate("/Space/home");
+      navigate("/Space/dashboard");
     } catch (err: any) {
       setError(handleFirebaseError(err.code));
     }
@@ -60,7 +60,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
             to={"/Space/dashboard"}
             className="text-center text-white bg-neutral-900 py-2 rounded-md shadow-xl hover:bg-neutral-950 transition-all"
           >
-            Go to homepage
+            Go to dashboard
           </Link>
           <button
             onClick={handleSignOut}
