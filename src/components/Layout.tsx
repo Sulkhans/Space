@@ -29,12 +29,12 @@ const Layout = ({ children }: LayoutProps) => {
     <Loading />
   ) : user ? (
     <div className="flex h-screen">
-      <Sidebar isHidden={isHidden} width={width} />
+      <Sidebar isHidden={isHidden} width={width} user={user} />
       <div
         className={`p-4 w-screen relative transition-all duration-1000
         ${width >= 640 && !isHidden && "ml-48"} `}
       >
-        <div className="flex w-full items-center justify-center">
+        <div className="flex w-full items-center justify-center mb-4">
           <Menu
             className="w-5 h-5 fill-dark absolute left-4 cursor-pointer"
             onClick={() => setIsHidden(!isHidden)}
