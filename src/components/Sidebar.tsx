@@ -2,7 +2,16 @@ import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { userType } from "../types/types";
-import defaultimg from "../assets/user.png";
+import SidebarButton from "./SidebarButton";
+import userDefault from "../assets/user.svg";
+import List from "../assets/list.svg?react";
+import Note from "../assets/note.svg?react";
+import Coin from "../assets/coins.svg?react";
+import Pomodoro from "../assets/pomodoro.svg?react";
+import Count from "../assets/count.svg?react";
+import Countdown from "../assets/countdown.svg?react";
+import Settings from "../assets/settings.svg?react";
+import Home from "../assets/home.svg?react";
 
 type SidebarProps = {
   isHidden: boolean;
@@ -22,26 +31,54 @@ const Sidebar = ({ isHidden, width, user }: SidebarProps) => {
   };
   return (
     <div
-      className={`fixed z-50 w-full flex flex-col items-center p-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none sm:w-48 
+      className={`fixed z-50 w-full flex flex-col items-center px-2 py-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none sm:w-48 
       ${isHidden && width <= 640 && "-translate-x-[105%]"}
       ${isHidden && width >= 640 && "-translate-x-52"}`}
     >
-      <h1
-        className="text-3xl font-semibold cursor-pointer"
-        onClick={() => navigate("/Space/dashboard")}
-      >
-        Space
-      </h1>
-      <div className="flex flex-col items-center gap-2 cursor-pointer">
+      <h1 className="text-3xl font-semibold">Space</h1>
+      <div className="flex flex-col items-center gap-2">
         <img
-          src={user.photoURL ? user.photoURL : defaultimg}
-          className="w-20 h-20 rounded-full none"
+          src={user.photoURL ? user.photoURL : userDefault}
+          className="w-20 h-20 rounded-full fill-white"
         />
         <p className="text-lg font-semibold">{auth.currentUser?.displayName}</p>
       </div>
-      <div className="flex flex-col items-center gap-3 px-2 h-full w-full overflow-y-auto"></div>
+      <div className="flex flex-col items-center mt-auto gap-2 px-2 w-full overflow-y-auto">
+        <SidebarButton
+          value="Dashboard"
+          svg={<Home className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="To-Do list"
+          svg={<List className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="Notes"
+          svg={<Note className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="Expense tracker"
+          svg={<Coin className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="Pomodoro clock"
+          svg={<Pomodoro className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="Countdown"
+          svg={<Countdown className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="Counter"
+          svg={<Count className="fill-white w-4 h-4" />}
+        />
+        <SidebarButton
+          value="Settings"
+          svg={<Settings className="fill-white w-4 h-4" />}
+        />
+      </div>
       <button
-        className="mt-auto text-neutral-300 hover:text-white transition-all"
+        className="mt-auto text-sm text-neutral-300 hover:text-white transition-all"
         onClick={handleSignOut}
       >
         Sign out
