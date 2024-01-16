@@ -16,7 +16,11 @@ const Layout = ({ children }: LayoutProps) => {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const location = useLocation();
   const format = (path: string) =>
-    path.slice(7)[0].toUpperCase() + path.slice(8).replace("-", " ");
+    path
+      .slice(7)
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
 
   useEffect(() => {
     const screenResize = () => setWidth(window.innerWidth);

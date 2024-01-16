@@ -49,7 +49,7 @@ const Sidebar = ({ isHidden, width, user }: SidebarProps) => {
           svg={<Home className="fill-white w-4 h-4" />}
         />
         <SidebarButton
-          value="To-Do list"
+          value="To-Do List"
           svg={<List className="fill-white w-4 h-4" />}
         />
         <SidebarButton
@@ -57,11 +57,11 @@ const Sidebar = ({ isHidden, width, user }: SidebarProps) => {
           svg={<Note className="fill-white w-4 h-4" />}
         />
         <SidebarButton
-          value="Expense tracker"
+          value="Expense Tracker"
           svg={<Coin className="fill-white w-4 h-4" />}
         />
         <SidebarButton
-          value="Pomodoro clock"
+          value="Pomodoro Clock"
           svg={<Pomodoro className="fill-white w-4 h-4" />}
         />
         <SidebarButton
