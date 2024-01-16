@@ -9,8 +9,8 @@ const useAuthLoad = () => {
   useEffect(() => {
     const checkAuth = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        const { displayName, email, photoURL } = authUser;
-        setUser({ email, displayName, photoURL });
+        const { uid, displayName, email, photoURL } = authUser;
+        setUser({ uid, email, displayName, photoURL });
       }
       setLoading(false);
     });
