@@ -32,9 +32,8 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
   };
   return (
     <div
-      className={`fixed z-50 w-full flex flex-col items-center px-2 py-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none sm:w-48
-      ${isHidden && width <= 640 && "-translate-x-[105%]"}
-      ${isHidden && width >= 640 && "-translate-x-52"}`}
+      className={`fixed z-50 flex flex-col items-center w-48 px-2 py-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none 
+      ${isHidden && "-translate-x-52"}`}
     >
       <h1 className="text-3xl font-semibold">Space</h1>
       <div className="flex flex-col items-center gap-2">
@@ -44,7 +43,7 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
         />
         <p className="text-lg font-semibold">{auth.currentUser?.displayName}</p>
       </div>
-      <div className="flex flex-col items-center mt-auto gap-2 px-2 w-44 overflow-y-auto sm:w-full">
+      <div className="flex flex-col items-center mt-auto gap-2 px-2 w-full overflow-y-auto">
         <SidebarButton
           value="Dashboard"
           svg={<Home className="fill-white w-4 h-4" />}

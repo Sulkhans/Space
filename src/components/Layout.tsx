@@ -32,7 +32,7 @@ const Layout = ({ children }: LayoutProps) => {
   return loading ? (
     <Loading />
   ) : user ? (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       <Sidebar
         isHidden={isHidden}
         setIsHidden={setIsHidden}
