@@ -33,7 +33,12 @@ const Layout = ({ children }: LayoutProps) => {
     <Loading />
   ) : user ? (
     <div className="flex h-screen">
-      <Sidebar isHidden={isHidden} width={width} user={user} />
+      <Sidebar
+        isHidden={isHidden}
+        setIsHidden={setIsHidden}
+        width={width}
+        user={user}
+      />
       <div
         className={`p-4 w-screen relative transition-all duration-1000
         ${width >= 640 && !isHidden && "ml-48"} `}

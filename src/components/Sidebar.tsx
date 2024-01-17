@@ -15,11 +15,12 @@ import Home from "../assets/home.svg?react";
 
 type SidebarProps = {
   isHidden: boolean;
+  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
   width: number;
   user: userType;
 };
 
-const Sidebar = ({ isHidden, width, user }: SidebarProps) => {
+const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
@@ -31,7 +32,7 @@ const Sidebar = ({ isHidden, width, user }: SidebarProps) => {
   };
   return (
     <div
-      className={`fixed z-50 w-full flex flex-col items-center px-2 py-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none sm:w-48 
+      className={`fixed z-50 w-full flex flex-col items-center px-2 py-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none sm:w-48
       ${isHidden && width <= 640 && "-translate-x-[105%]"}
       ${isHidden && width >= 640 && "-translate-x-52"}`}
     >
@@ -43,38 +44,54 @@ const Sidebar = ({ isHidden, width, user }: SidebarProps) => {
         />
         <p className="text-lg font-semibold">{auth.currentUser?.displayName}</p>
       </div>
-      <div className="flex flex-col items-center mt-auto gap-2 px-2 w-full overflow-y-auto">
+      <div className="flex flex-col items-center mt-auto gap-2 px-2 w-44 overflow-y-auto sm:w-full">
         <SidebarButton
           value="Dashboard"
           svg={<Home className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="To-Do List"
           svg={<List className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="Notes"
           svg={<Note className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="Expense Tracker"
           svg={<Coin className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="Pomodoro Clock"
           svg={<Pomodoro className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="Countdown"
           svg={<Countdown className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="Counter"
           svg={<Count className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
         <SidebarButton
           value="Settings"
           svg={<Settings className="fill-white w-4 h-4" />}
+          width={width}
+          setIsHidden={setIsHidden}
         />
       </div>
       <button
