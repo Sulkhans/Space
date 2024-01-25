@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +33,7 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
   };
   return (
     <div
-      className={`fixed z-50 flex flex-col items-center w-48 px-2 py-4 gap-8 h-screen bg-dark shadow-def text-white duration-1000 transition-all select-none 
+      className={`fixed z-50 flex flex-col items-center w-48 px-2 py-4 gap-8 h-screen bg-dark text-white duration-1000 transition-all select-none 
       ${isHidden && "-translate-x-52"}`}
     >
       <h1 className="text-3xl font-semibold">Space</h1>

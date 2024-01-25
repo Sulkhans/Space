@@ -45,7 +45,7 @@ const Layout = ({ children }: LayoutProps) => {
       >
         <div className="flex w-full items-center justify-center mb-4">
           <Menu
-            className="w-5 h-5 fill-dark absolute left-4 cursor-pointer"
+            className="absolute left-[18px] w-5 h-5 fill-dark cursor-pointer transition-all"
             onClick={() => setIsHidden(!isHidden)}
           />
           <h1 className="font-bold text-xl leading-5">

@@ -11,6 +11,7 @@ import { userType } from "../../types/types";
 //@ts-ignore
 import Eye from "../../assets/eye.svg?react";
 import Google from "../../assets/google.svg";
+import { Button } from "../Button";
 
 type SigninProps = {
   setIsRegistered: React.Dispatch<React.SetStateAction<boolean>>;
@@ -79,7 +80,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="py-2 rounded-md indent-3 bg-neutral-200 font-medium"
+            className="py-2 rounded-md indent-3 bg-neutral-100 font-medium"
           />
           <div className="relative flex flex-col justify-center">
             <input
@@ -87,7 +88,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="py-2 rounded-md indent-3 bg-neutral-200 font-medium pr-12"
+              className="py-2 rounded-md indent-3 bg-neutral-100 font-medium pr-12"
             />
             <Eye
               className={`absolute w-6 h-6 right-3 cursor-pointer transition-all ${
@@ -101,12 +102,7 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
               {error}
             </p>
           )}
-          <button
-            onClick={handleSignIn}
-            className="text-white bg-neutral-900 py-2 rounded-md shadow-xl hover:bg-neutral-950 transition-all"
-          >
-            Sign in
-          </button>
+          <Button text="Sign in" onClick={handleSignIn} style="" />
           <button
             onClick={() => setIsRegistered(false)}
             className="text-sm font-bold text-neutral-600 hover:text-neutral-900 transition-all"

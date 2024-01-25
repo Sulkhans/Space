@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { handleFirebaseError } from "../../config/firebaseErrors";
 //@ts-ignore
 import Eye from "../../assets/eye.svg?react";
+import { Button } from "../Button";
 
 type SignupProps = {
   setIsRegistered: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,14 +56,14 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
           placeholder="First name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          className="py-2 rounded-md indent-3 bg-neutral-200 font-medium w-1/2 mr-3"
+          className="py-2 rounded-md indent-3 bg-neutral-100 font-medium w-1/2 mr-3"
         />
         <input
           type="text"
           placeholder="Last name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          className="py-2 rounded-md indent-3 bg-neutral-200 font-medium w-1/2"
+          className="py-2 rounded-md indent-3 bg-neutral-100 font-medium w-1/2"
         />
       </div>
       <input
@@ -70,7 +71,7 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="py-2 rounded-md indent-3 bg-neutral-200 font-medium"
+        className="py-2 rounded-md indent-3 bg-neutral-100 font-medium"
       />
       <div className="relative flex flex-col justify-center">
         <input
@@ -78,24 +79,18 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="py-2 rounded-md indent-3 bg-neutral-200 font-medium pr-12"
+          className="py-2 rounded-md indent-3 bg-neutral-100 font-medium pr-12"
         />
         <Eye
-          className={`absolute w-6 h-6 right-3 cursor-pointer transition-all ${
-            showPassword ? "fill-neutral-700" : "fill-neutral-400"
-          } `}
           onClick={() => setShowPassword(!showPassword)}
+          className={`absolute w-6 h-6 right-3 cursor-pointer transition-all 
+          ${showPassword ? "fill-neutral-700" : "fill-neutral-400"}`}
         />
       </div>
       {error && (
         <p className="text-center text-xs font-bold text-red-600">{error}</p>
       )}
-      <button
-        onClick={signUp}
-        className="text-white bg-neutral-900 py-2 rounded-md shadow-xl hover:bg-neutral-950 transition-all"
-      >
-        Sign up
-      </button>
+      <Button text="Sign up" onClick={signUp} style="" />
       <button
         onClick={() => setIsRegistered(true)}
         className="text-sm font-bold text-neutral-600 hover:text-neutral-900 transition-all"
