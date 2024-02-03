@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, googleProvider } from "../../config/firebase";
+import { auth, db, googleProvider } from "../../config/firebase";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { handleFirebaseError } from "../../config/firebaseErrors";
 import { userType } from "../../types/types";
 //@ts-ignore
@@ -36,7 +37,18 @@ export const Signin = ({ setIsRegistered, user, setUser }: SigninProps) => {
   };
   const handleSignInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const uid = user.uid;
+      const displayName = user.displayName;
+      const photoURL = user.photoURL || "";
+      const userRef = doc(db, "users", uid);
+      const userData = {
+        uid,
+        displayName,
+        photoURL,
+      };
+      await setDoc(userRef, userData, { merge: true });
       navigate("/Space/dashboard");
     } catch (err: any) {
       setError(handleFirebaseError(err.code));

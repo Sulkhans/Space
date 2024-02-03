@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { handleFirebaseError } from "../../config/firebaseErrors";
+import { doc, setDoc } from "firebase/firestore";
 //@ts-ignore
 import Eye from "../../assets/eye.svg?react";
 import { Button } from "../Button";
@@ -40,6 +41,14 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
       await updateProfile(acc.user, {
         displayName: formatName(firstName) + " " + formatName(lastName),
       }).catch((err) => console.log(err));
+      const uid = acc.user.uid;
+      const userRef = doc(db, "users", uid);
+      const userData = {
+        uid: acc.user.uid,
+        displayName: formatName(firstName) + " " + formatName(lastName),
+        photoURL: "",
+      };
+      await setDoc(userRef, userData);
       navigate("/Space/dashboard");
     } catch (err: any) {
       setError(handleFirebaseError(err.code));
