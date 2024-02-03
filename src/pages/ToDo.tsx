@@ -43,7 +43,7 @@ export const ToDo = () => {
       <div className="flex gap-2">
         <Input
           value={inputValue}
-          setValue={setInputValue}
+          onChange={setInputValue}
           placeholder="Write a new To-Do"
           maxLength={100}
           style="w-full"
