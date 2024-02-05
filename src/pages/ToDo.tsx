@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/Button";
-import { Input } from "../components/Input";
 import { db } from "../config/firebase";
 import {
   addDoc,
@@ -32,7 +31,9 @@ export const ToDo = () => {
   const [todos, setTodos] = useState<Array<todoType>>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [fetchTrigger, setFetchTrigger] = useState<boolean>(true);
+  const [edit, setEdit] = useState<number>();
   const { user, loading } = useAuthLoad();
+  const ref = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -66,30 +67,56 @@ export const ToDo = () => {
     await deleteDoc(doc(todosRef, todos[i].id));
     setFetchTrigger(true);
   };
-  const handleEdit = async (i: number) => {
-    setInputValue(todos[i].text);
-    await handleDelete(i);
-  };
   const handleCheck = async (i: number) => {
     const todosRef = collection(db, "users", user!.uid, "todos");
     const todo = doc(todosRef, todos[i].id);
     await updateDoc(todo, { check: !todos[i].check });
     setFetchTrigger(true);
   };
+  const handleEdit = async (i: number) => {
+    const todosRef = collection(db, "users", user!.uid, "todos");
+    const todo = doc(todosRef, todos[i].id);
+    await updateDoc(todo, { text: inputValue });
+    setFetchTrigger(true);
+    setInputValue("");
+    setEdit(undefined);
+  };
+  const handleEditMode = (i: number) => {
+    setEdit(i);
+    setInputValue(todos[i].text);
+    ref.current?.focus();
+  };
+  const handleCancelEdit = () => {
+    setEdit(undefined);
+    setInputValue("");
+  };
+
   return (
     <div>
       <div className="flex gap-2">
-        <Input
+        <input
           value={inputValue}
-          onChange={setInputValue}
+          onChange={(e: any) => setInputValue(e.target.value)}
           placeholder="Write a new To-Do"
+          className="w-full p-2 border-2 border-neutral-900 hover:border-neutral-950 shadow-md rounded-md font-bold placeholder:text-neutral-900"
           maxLength={100}
-          style="w-full"
+          ref={ref}
         />
-        <Button onClick={handleNew} text="Add to list" style="w-48" />
+        {edit ? (
+          <>
+            <Button onClick={handleCancelEdit} text="Cancel" style="w-36" />
+            <Button
+              onClick={() => handleEdit(edit)}
+              text="Confirm"
+              style="w-36"
+            />
+          </>
+        ) : (
+          <Button onClick={handleNew} text="Add to list" style="w-36" />
+        )}
       </div>
-      <div className="flex flex-col mt-4 gap-3">
-        {todos.length == 0 && !fetchTrigger ? (
+      <div className="flex flex-col my-4 gap-3">
+        {!fetchTrigger && todos.length == 0 ? (
           <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/5 font-bold text-xl text-neutral-600 select-none text-center text-nowrap">
             Your to-do list is empty
           </p>
@@ -97,9 +124,8 @@ export const ToDo = () => {
           todos.map((item, i) => (
             <div
               key={i}
-              className={`${
-                fetchTrigger && "opacity-75"
-              } p-2 border-2 border-neutral-900 shadow-md flex items-center justify-between rounded-md transition-all`}
+              className={`p-2 border-2 border-neutral-900 shadow-md flex items-center justify-between rounded-md transition-all
+              ${(edit || fetchTrigger) && "pointer-events-none opacity-70"}`}
             >
               <div
                 className="w-5 h-5 flex items-center justify-center rounded-md border-2 border-neutral-900 cursor-pointer absolute"
@@ -111,9 +137,8 @@ export const ToDo = () => {
                 />
               </div>
               <p
-                className={`${
-                  item.check && "line-through"
-                } pl-7 pr-16 font-bold break-all select-none`}
+                className={`pl-7 pr-16 font-bold break-all select-none
+                ${item.check && "line-through"} `}
               >
                 {item.text}
               </p>
@@ -121,7 +146,7 @@ export const ToDo = () => {
                 {!item.check && (
                   <Edit
                     className="w-5 h-5 fill-neutral-900 cursor-pointer"
-                    onClick={() => handleEdit(i)}
+                    onClick={() => handleEditMode(i)}
                   />
                 )}
                 <Delete
