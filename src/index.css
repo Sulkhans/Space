@@ -6,9 +6,14 @@ input,
 button {
   outline: none;
 }
+
 .animate-bg {
   animation: movement 120s linear infinite;
 }
+.animate-sp {
+  animation: rotation 1s linear infinite;
+}
+
 @keyframes movement {
   0% {
     background-position: 0% 50%;
@@ -18,6 +23,15 @@ button {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
