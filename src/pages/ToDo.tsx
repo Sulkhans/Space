@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import useAuthLoad from "../hooks/useAuthLoad";
+import Loading from "../components/Loading";
 //@ts-ignore
 import Delete from "../assets/trash.svg?react";
 //@ts-ignore
@@ -116,7 +117,9 @@ export const ToDo = () => {
         )}
       </div>
       <div className="flex flex-col my-4 gap-3">
-        {!fetchTrigger && todos.length == 0 ? (
+        {fetchTrigger && todos.length == 0 ? (
+          <Loading />
+        ) : todos.length == 0 ? (
           <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/5 font-bold text-xl text-neutral-600 select-none text-center text-nowrap">
             Your to-do list is empty
           </p>
