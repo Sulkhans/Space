@@ -30,8 +30,8 @@ type todoType = {
 
 export const ToDo = () => {
   const [todos, setTodos] = useState<Array<todoType>>([]);
-  const [inputValue, setInputValue] = useState<string>("");
-  const [fetchTrigger, setFetchTrigger] = useState<boolean>(true);
+  const [input, setInput] = useState<string>("");
+  const [fetching, setFetching] = useState<boolean>(true);
   const [edit, setEdit] = useState<number>();
   const { user, loading } = useAuthLoad();
   const ref = useRef<HTMLInputElement | null>(null);
@@ -46,58 +46,58 @@ export const ToDo = () => {
         ...doc.data(),
       }));
       setTodos(fetchedTodos as todoType[]);
-      setFetchTrigger(false);
+      setFetching(false);
     };
     if (!loading) fetchTodos();
-  }, [user, fetchTrigger]);
+  }, [user, fetching]);
 
   const handleNew = async () => {
-    if (inputValue.replace(/ /g, "") != "") {
+    if (input.replace(/ /g, "") != "") {
       const todosRef = collection(db, "users", user!.uid, "todos");
       await addDoc(todosRef, {
-        text: inputValue,
+        text: input,
         check: false,
         dateTime: Timestamp.now(),
       });
-      setFetchTrigger(true);
-      setInputValue("");
+      setFetching(true);
+      setInput("");
     }
   };
   const handleDelete = async (i: number) => {
     const todosRef = collection(db, "users", user!.uid, "todos");
     await deleteDoc(doc(todosRef, todos[i].id));
-    setFetchTrigger(true);
+    setFetching(true);
   };
   const handleCheck = async (i: number) => {
     const todosRef = collection(db, "users", user!.uid, "todos");
     const todo = doc(todosRef, todos[i].id);
     await updateDoc(todo, { check: !todos[i].check });
-    setFetchTrigger(true);
+    setFetching(true);
   };
   const handleEdit = async (i: number) => {
     const todosRef = collection(db, "users", user!.uid, "todos");
     const todo = doc(todosRef, todos[i].id);
-    await updateDoc(todo, { text: inputValue });
-    setFetchTrigger(true);
-    setInputValue("");
+    await updateDoc(todo, { text: input });
+    setFetching(true);
+    setInput("");
     setEdit(undefined);
   };
   const handleEditMode = (i: number) => {
     setEdit(i);
-    setInputValue(todos[i].text);
+    setInput(todos[i].text);
     ref.current?.focus();
   };
   const handleCancelEdit = () => {
     setEdit(undefined);
-    setInputValue("");
+    setInput("");
   };
 
   return (
     <div>
       <div className="flex gap-2">
         <input
-          value={inputValue}
-          onChange={(e: any) => setInputValue(e.target.value)}
+          value={input}
+          onChange={(e: any) => setInput(e.target.value)}
           placeholder="Write a new To-Do"
           className="w-full p-2 border-2 border-neutral-900 hover:border-neutral-950 shadow-md rounded-md font-bold placeholder:text-neutral-900"
           maxLength={100}
@@ -117,7 +117,7 @@ export const ToDo = () => {
         )}
       </div>
       <div className="flex flex-col my-4 gap-3">
-        {fetchTrigger && todos.length == 0 ? (
+        {fetching && todos.length == 0 ? (
           <Loading />
         ) : todos.length == 0 ? (
           <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/5 font-bold text-xl text-neutral-600 select-none text-center text-nowrap">
@@ -128,7 +128,7 @@ export const ToDo = () => {
             <div
               key={i}
               className={`p-2 border-2 border-neutral-900 shadow-md flex items-center justify-between rounded-md transition-all
-              ${(edit || fetchTrigger) && "pointer-events-none opacity-70"}`}
+              ${(edit || fetching) && "pointer-events-none opacity-70"}`}
             >
               <div
                 className="w-5 h-5 flex items-center justify-center rounded-md border-2 border-neutral-900 cursor-pointer absolute"
