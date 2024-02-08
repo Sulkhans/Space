@@ -92,7 +92,9 @@ export const ToDo = () => {
     setInput("");
   };
 
-  return (
+  return fetching && todos.length === 0 ? (
+    <Loading />
+  ) : (
     <div>
       <div className="flex gap-2">
         <input
@@ -117,9 +119,7 @@ export const ToDo = () => {
         )}
       </div>
       <div className="flex flex-col my-4 gap-3">
-        {fetching && todos.length == 0 ? (
-          <Loading />
-        ) : todos.length == 0 ? (
+        {todos.length == 0 ? (
           <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/5 font-bold text-xl text-neutral-600 select-none text-center text-nowrap">
             Your to-do list is empty
           </p>
@@ -135,7 +135,7 @@ export const ToDo = () => {
                 onClick={() => handleCheck(i)}
               >
                 <Check
-                  className={`w-[14px] h-[14px] transition-all
+                  className={`w-3.5 h-3.5 transition-all
                   ${item.check ? "fill-neutral-900" : "fill-none"}`}
                 />
               </div>
