@@ -48,7 +48,7 @@ const Layout = ({ children }: LayoutProps) => {
             className="absolute left-[18px] w-5 h-5 fill-dark cursor-pointer transition-all"
             onClick={() => setIsHidden(!isHidden)}
           />
-          <h1 className="font-bold text-xl leading-5">
+          <h1 className="font-bold text-xl leading-5 select-none">
             {format(location.pathname)}
           </h1>
         </div>
