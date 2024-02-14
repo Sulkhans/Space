@@ -37,7 +37,7 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
       ${isHidden && "-translate-x-52"}`}
     >
       <h1 className="text-3xl font-semibold">Space</h1>
-      <div className="flex flex-col items-center gap-2">
+      <div className="hidden sm:flex flex-col items-center gap-2">
         <img
           src={user.photoURL ? user.photoURL : userDefault}
           className="w-20 h-20 rounded-full fill-white"
