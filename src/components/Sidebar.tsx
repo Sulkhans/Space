@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { userType } from "../types/types";
 import SidebarButton from "./SidebarButton";
 import userDefault from "../assets/user.svg";
-import List from "../assets/list.svg?react";
-import Note from "../assets/note.svg?react";
-import Coin from "../assets/coins.svg?react";
-import Pomodoro from "../assets/pomodoro.svg?react";
-import Count from "../assets/count.svg?react";
-import Countdown from "../assets/countdown.svg?react";
-import Settings from "../assets/settings.svg?react";
-import Home from "../assets/home.svg?react";
+import List from "../assets/sidebar/list.svg?react";
+import Note from "../assets/sidebar/note.svg?react";
+import Coin from "../assets/sidebar/coins.svg?react";
+import Pomodoro from "../assets/sidebar/pomodoro.svg?react";
+import Count from "../assets/sidebar/count.svg?react";
+import Countdown from "../assets/sidebar/countdown.svg?react";
+import Settings from "../assets/sidebar/settings.svg?react";
+import Home from "../assets/sidebar/home.svg?react";
 
 type SidebarProps = {
   isHidden: boolean;
@@ -37,7 +37,7 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
       ${isHidden && "-translate-x-52"}`}
     >
       <h1 className="text-3xl font-semibold">Space</h1>
-      <div className="hidden sm:flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2">
         <img
           src={user.photoURL ? user.photoURL : userDefault}
           className="w-20 h-20 rounded-full fill-white"
