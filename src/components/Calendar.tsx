@@ -61,7 +61,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full font-semibold p-3 border-2 border-neutral-900 shadow-md rounded-md select-none transition-all">
+    <div className="flex flex-col gap-2 w-full text-sm font-semibold p-3 border-2 border-neutral-900 shadow-md rounded-md select-none transition-all">
       <div className="flex justify-between">
         <Caret
           className="w-6 h-6 -rotate-90 cursor-pointer"
@@ -76,7 +76,7 @@ const Calendar = () => {
           onClick={handleNext}
         />
       </div>
-      <div className="grid grid-rows-6 grid-cols-7 self-center gap-x-1.5 gap-y-0.5 place-items-center">
+      <div className="grid grid-rows-6 grid-cols-7 self-center gap-x-2 gap-y-0.5 place-items-center">
         {weekdays.map((day, i) => (
           <span key={i}>{day}</span>
         ))}
