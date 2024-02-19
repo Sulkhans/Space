@@ -3,7 +3,7 @@ import { Button } from "../components/Button";
 //@ts-ignore
 import Reset from "../assets/reset.svg?react";
 //@ts-ignore
-import Switch from "../assets/pomodoro.svg?react";
+import Switch from "../assets/sidebar/pomodoro.svg?react";
 
 export const Pomodoro = () => {
   const [time, setTime] = useState<number>(1500);
