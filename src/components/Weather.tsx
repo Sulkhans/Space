@@ -1,24 +1,4 @@
 import { useEffect, useState } from "react";
-//@ts-ignore
-import Sun from "../assets/weather/sun.svg?react";
-//@ts-ignore
-import Moon from "../assets/weather/moon.svg?react";
-//@ts-ignore
-import CloudSun from "../assets/weather/cloud-sun.svg?react";
-//@ts-ignore
-import CloudMoon from "../assets/weather/cloud-moon.svg?react";
-//@ts-ignore
-import Clouds from "../assets/weather/clouds.svg?react";
-//@ts-ignore
-import Rain from "../assets/weather/rain.svg?react";
-//@ts-ignore
-import Wind from "../assets/weather/wind.svg?react";
-//@ts-ignore
-import Thunderstorm from "../assets/weather/thunderstorm.svg?react";
-//@ts-ignore
-import Hail from "../assets/weather/hail.svg?react";
-//@ts-ignore
-import Fog from "../assets/weather/fog.svg?react";
 
 interface forecastType {
   current: {
@@ -64,7 +44,7 @@ interface forecastType {
 }
 
 const Weather = () => {
-  const [location, setLocation] = useState<string>("Warsaw");
+  const [location, setLocation] = useState<string>("Tokyo");
   const [forecast, setForecast] = useState<forecastType>();
   const [unit, setUnit] = useState<boolean>(true);
 
@@ -99,43 +79,39 @@ const Weather = () => {
   return (
     <div
       onClick={() => setUnit(!unit)}
-      className="flex flex-col justify-center w-full relative font-semibold text-neutral-900 py-7 px-5 border-2 border-neutral-900 shadow-md rounded-md select-none transition-all cursor-pointer"
+      className="flex flex-col justify-center w-full relative text-neutral-900 py-7 px-5 border-2 border-neutral-900 shadow-md rounded-md select-none transition-all cursor-pointer"
     >
       {forecast && (
-        <div className="flex flex-col items-center md:flex-row md:justify-center md:gap-8 lg:gap-6 xl:gap-12">
-          <div className="flex justify-center gap-12 md:gap-4 lg:gap-0 xl:gap-8">
-            <div className="text-sm xl:text-lg">
-              <h1 className="text-xl xl:text-2xl">{location}</h1>
-              <p>Today</p>
-              <p className="leading-5">{forecast.current.condition.text}</p>
+        <div className="flex flex-col items-center md:flex-row md:justify-center md:gap-8 lg:gap-4 lg:flex-col xl:flex-row 2xl:gap-6">
+          <div className="flex justify-center items-center gap-4 xl:gap-2 2xl:gap-6">
+            <div>
+              <h1 className="text-xl font-semibold">{location}</h1>
+              <p className="text-xs sm:text-sm font-semibold">
+                {forecast.current.condition.text}
+              </p>
             </div>
             <div className="flex items-center gap-1 pr-8">
               <img src={forecast.current.condition.icon} />
-              <div className="relative">
-                <span className="text-5xl font-thin xl:font-normal">
-                  {Math.round(
-                    unit ? forecast.current.temp_c : forecast.current.temp_f
-                  )}
-                </span>
-                <span className="absolute text-3xl font-normal xl:font-semibold">
+              <p className="relative text-5xl">
+                {Math.round(
+                  unit ? forecast.current.temp_c : forecast.current.temp_f
+                )}
+                <span className="absolute text-3xl font-medium">
                   {unit ? "°C" : "°F"}
                 </span>
-              </div>
+              </p>
             </div>
           </div>
-          <div className="w-full border-[1px] border-neutral-900 my-6 md:w-0 md:h-24 md:m-0 xl:h-full" />
-          <div className="flex gap-4 xl:gap-12">
+          <hr className="w-full border-[1px] border-neutral-900 my-6 md:w-0 md:h-24 md:m-0 lg:h-0 lg:w-full xl:h-full xl:w-0" />
+          <div className="flex gap-8 sm:gap-12 xl:gap-4 2xl:gap-6">
             {forecast.forecast.map((each, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center gap-1 xl:gap-2"
-              >
-                <p className="text-lg leading-4 xl:text-2xl xl:leading-5">
+              <div key={i} className="flex flex-col items-center gap-1">
+                <p className="text-lg leading-4 font-semibold">
                   {new Date(each.date).toDateString().slice(0, 3)}
                 </p>
                 <div className="flex items-center gap-1">
                   <img src={each.day.condition.icon} />
-                  <div className="flex flex-col items-end font-semibold text-xl leading-6 xl:text-2xl xl:leading-7">
+                  <div className="flex flex-col items-end font-medium text-xl leading-6">
                     <p>
                       {Math.round(
                         unit ? each.day.mintemp_c : each.day.mintemp_f
@@ -150,7 +126,7 @@ const Weather = () => {
                     </p>
                   </div>
                 </div>
-                <p className="text-xs text-center leading-3 font-bold xl:text-sm">
+                <p className="text-xs text-center leading-3 font-bold">
                   {each.day.condition.text}
                 </p>
               </div>

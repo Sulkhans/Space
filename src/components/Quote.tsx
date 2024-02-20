@@ -41,9 +41,9 @@ const Quote = () => {
   }, []);
 
   return (
-    <div className="flex flex-col p-6 md:p-10 gap-3 justify-center items-center font-semibold border-2 border-neutral-900 shadow-md rounded-md transition-all">
-      <p className="text-lg md:text-xl xl:text-2xl">{quote.quote}</p>
-      <p className="self-end xl:text-lg">- {quote.author}</p>
+    <div className="flex flex-col bg-neutral-900 text-white p-6 md:p-8 gap-3 justify-center items-center font-semibold shadow-md rounded-md transition-all">
+      <p className="text-lg">{quote.quote}</p>
+      <p className="self-end">- {quote.author}</p>
     </div>
   );
 };
