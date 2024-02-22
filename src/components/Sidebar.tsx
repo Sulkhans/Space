@@ -44,7 +44,7 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
         />
         <p className="text-lg font-semibold">{auth.currentUser?.displayName}</p>
       </div>
-      <div className="flex flex-col items-center mt-auto gap-2 px-2 w-full overflow-y-auto">
+      <div className="flex flex-col items-center gap-2 px-2 w-full overflow-y-auto">
         <SidebarButton
           value="Dashboard"
           svg={<Home className="fill-white w-4 h-4" />}

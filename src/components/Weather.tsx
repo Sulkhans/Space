@@ -82,11 +82,11 @@ const Weather = () => {
       className="flex flex-col justify-center w-full relative text-neutral-900 py-7 px-5 border-2 border-neutral-900 shadow-md rounded-md select-none transition-all cursor-pointer"
     >
       {forecast && (
-        <div className="flex flex-col items-center md:flex-row md:justify-center md:gap-8 lg:gap-4 lg:flex-col xl:flex-row 2xl:gap-6">
-          <div className="flex justify-center items-center gap-4 xl:gap-2 2xl:gap-6">
+        <div className="flex flex-col items-center md:flex-row md:justify-center md:gap-6 lg:gap-4 lg:flex-col xl:flex-row xl:gap-8 2xl:gap-12">
+          <div className="flex justify-center items-center gap-4 xl:gap-0 xl:flex-col xl:text-center 2xl:flex-row 2xl:gap-6 2xl:text-start">
             <div>
               <h1 className="text-xl font-semibold">{location}</h1>
-              <p className="text-xs sm:text-sm font-semibold">
+              <p className="text-xs sm:text-sm font-semibold xl:leading-4">
                 {forecast.current.condition.text}
               </p>
             </div>
@@ -103,7 +103,7 @@ const Weather = () => {
             </div>
           </div>
           <hr className="w-full border-[1px] border-neutral-900 my-6 md:w-0 md:h-24 md:m-0 lg:h-0 lg:w-full xl:h-full xl:w-0" />
-          <div className="flex gap-8 sm:gap-12 xl:gap-4 2xl:gap-6">
+          <div className="flex gap-8 sm:gap-12 md:gap-6 2xl:gap-10">
             {forecast.forecast.map((each, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
                 <p className="text-lg leading-4 font-semibold">
