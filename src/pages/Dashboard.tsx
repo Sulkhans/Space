@@ -2,6 +2,8 @@ import Calendar from "../components/Calendar";
 import Clock from "../components/Clock";
 import Quote from "../components/Quote";
 import Weather from "../components/Weather";
+import Links from "../components/Links";
+import Spotify from "../components/Spotify";
 
 const Dashboard = () => {
   return (
@@ -13,6 +15,10 @@ const Dashboard = () => {
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3">
         <Weather />
         <Quote />
+      </div>
+      <div className="flex flex-col lg:flex-row gap-3">
+        <Links />
+        <Spotify />
       </div>
     </div>
   );
