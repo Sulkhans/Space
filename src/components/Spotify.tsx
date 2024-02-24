@@ -344,7 +344,7 @@ const Spotify = () => {
   ];
 
   return (
-    <div className="flex-grow px-1 flex items-center bg-[#282828] rounded-md">
+    <div className="flex-grow md:px-1 flex items-center bg-[#282828] rounded-md">
       <iframe
         src={`https://open.spotify.com/embed/track/${
           tracks[Math.floor(Math.random() * tracks.length)]
