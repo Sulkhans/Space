@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   EmailAuthProvider,
+  deleteUser,
   getAuth,
   reauthenticateWithCredential,
   signOut,
@@ -8,7 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { db } from "../config/firebase";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { Button } from "../components/Button";
 //@ts-ignore
 import Eye from "../assets/eye.svg?react";
@@ -26,7 +27,7 @@ type passwordType = {
 type messageType = {
   text: string;
   color: string;
-  location: boolean;
+  location: number;
 };
 
 export const Settings = () => {
@@ -43,14 +44,24 @@ export const Settings = () => {
   const [message, setMessage] = useState<messageType>({
     text: "",
     color: "",
-    location: false,
+    location: 0,
   });
-  const navigate = useNavigate();
+  const [deleting, setDeleting] = useState<boolean>(false);
+  const [pass, setPass] = useState<string>("");
   const auth = getAuth();
   const provider = auth.currentUser?.providerData[0].providerId;
+  const navigate = useNavigate();
 
   const formatName = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setName((prev) => ({ ...prev, [name]: value }));
+  };
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setPassword((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleUpdateProfile = async () => {
     const { first, last } = name;
@@ -58,7 +69,7 @@ export const Settings = () => {
       setMessage({
         text: "Please enter valid names",
         color: "text-red-600",
-        location: false,
+        location: 1,
       });
       return;
     }
@@ -71,13 +82,13 @@ export const Settings = () => {
       setMessage({
         text: "Display name was updated successfully",
         color: "text-green-600",
-        location: false,
+        location: 1,
       });
     } catch (err) {
       setMessage({
         text: "Failed to update",
         color: "text-red-600",
-        location: false,
+        location: 1,
       });
       console.error(err);
     }
@@ -88,7 +99,7 @@ export const Settings = () => {
       setMessage({
         text: "Password must contain at least one capital letter",
         color: "text-red-600",
-        location: true,
+        location: 2,
       });
       return;
     }
@@ -96,7 +107,7 @@ export const Settings = () => {
       setMessage({
         text: "Passwords don't match",
         color: "text-red-600",
-        location: true,
+        location: 2,
       });
       return;
     }
@@ -111,14 +122,14 @@ export const Settings = () => {
       setMessage({
         text: "Password was updated successfully",
         color: "text-green-600",
-        location: true,
+        location: 2,
       });
     } catch (err: any) {
       if (err.code === "auth/user-token-expired") {
         setMessage({
           text: "Too many failed attempts. Try again later",
           color: "text-red-600",
-          location: true,
+          location: 2,
         });
         return;
       }
@@ -126,27 +137,17 @@ export const Settings = () => {
         setMessage({
           text: "Current password is incorrect",
           color: "text-red-600",
-          location: true,
+          location: 2,
         });
         return;
       }
       setMessage({
         text: "Failed to update",
         color: "text-red-600",
-        location: true,
+        location: 2,
       });
       console.error(err.code);
     }
-  };
-
-  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setName((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setPassword((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSignOut = async () => {
@@ -158,16 +159,59 @@ export const Settings = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const user = auth.currentUser!;
+      const credential = EmailAuthProvider.credential(user.email!, pass);
+      await reauthenticateWithCredential(user, credential);
+      const userRef = collection(db, "users");
+      await deleteDoc(doc(userRef, auth.currentUser?.uid));
+      await deleteUser(user);
+      navigate("/Space/auth");
+    } catch (err) {
+      setMessage({
+        text: "Failed to delete an account",
+        color: "text-red-600",
+        location: 0,
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6 sm:px-6 md:w-[34rem]">
       <div className="flex flex-col gap-3">
         <h1 className="text-3xl font-bold">Account</h1>
         <Button text="Sign out" onClick={() => handleSignOut()} style="" />
-        <Button
-          text="Delete account"
-          onClick={() => handleSignOut()}
-          style="bg-red-700 hover:bg-red-600"
-        />
+        {!deleting && provider !== "google.com" && (
+          <Button
+            text="Delete account"
+            onClick={() => setDeleting(true)}
+            style="bg-red-700 hover:bg-red-600"
+          />
+        )}
+        {deleting && (
+          <div className="flex flex-col gap-3">
+            <div className="flex gap-3">
+              <input
+                type="password"
+                placeholder="Password"
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                className="w-1/2 py-2 rounded-md indent-3 bg-neutral-100 font-medium pr-12"
+              />
+              <Button
+                text="Delete account"
+                onClick={() => handleDelete()}
+                style="w-1/2 bg-red-700 hover:bg-red-600"
+              />
+            </div>
+            {!message.location && (
+              <p className={`text-center text-xs font-bold ${message.color}`}>
+                {message.text}
+              </p>
+            )}
+          </div>
+        )}
       </div>
       <div className="flex flex-col gap-3">
         <h1 className="text-3xl font-bold">Profile</h1>
@@ -189,7 +233,7 @@ export const Settings = () => {
           />
         </div>
         <Button text="Save" onClick={() => handleUpdateProfile()} style="" />
-        {!message.location && (
+        {message.location === 1 && (
           <p className={`text-center text-xs font-bold ${message.color}`}>
             {message.text}
           </p>
@@ -235,7 +279,7 @@ export const Settings = () => {
             onClick={() => handleUpdatePassword()}
             style=""
           />
-          {message.location && (
+          {message.location === 2 && (
             <p className={`text-center text-xs font-bold ${message.color}`}>
               {message.text}
             </p>
