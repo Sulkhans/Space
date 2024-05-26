@@ -170,12 +170,12 @@ export const Countdown = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-3 md:flex-row md:flex-wrap">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 2xl:grid-cols-3">
         {countdowns.map((item, i) => (
           <div
             key={i}
             onClick={() => setCurrent(i)}
-            className="p-3 flex flex-col items-center gap-3 sm:gap-5 md:flex-grow border-2 border-neutral-900 font-bold shadow-md rounded-md select-none cursor-pointer transition-all"
+            className="p-3 flex flex-col items-center gap-3 sm:gap-5 border-2 border-neutral-900 font-bold rounded-md select-none cursor-pointer transition-all"
           >
             <p className="text-xl sm:text-2xl">{item.title}</p>
             <div className="px-3 grid grid-cols-4 grid-rows-2 place-items-center text-sm sm:text-base gap-x-6">

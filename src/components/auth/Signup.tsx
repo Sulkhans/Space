@@ -20,6 +20,7 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
+
   const formatName = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
@@ -28,12 +29,16 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
       setError("Please enter your name");
       return;
     }
-    if (/[^a-zA-Z]/.test(firstName) || /[^a-zA-Z]/.test(lastName)) {
-      setError("Names can only contain letters");
+    if (/[0-9]/.test(firstName) || /[0-9]/.test(lastName)) {
+      setError("Name can only contain letters");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address");
       return;
     }
     if (!/[A-Z]/.test(password)) {
-      setError("Password must contain one capital letter");
+      setError("Password must contain a capital letter");
       return;
     }
     try {
@@ -54,6 +59,7 @@ export const Signup = ({ setIsRegistered }: SignupProps) => {
       setError(handleFirebaseError(err.code));
     }
   };
+
   return (
     <div className="flex flex-col gap-3 w-64 lg:w-80 ">
       <h2 className="text-center font-bold text-neutral-900 md:text-lg mb-2">

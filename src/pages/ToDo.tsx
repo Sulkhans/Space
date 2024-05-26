@@ -127,7 +127,7 @@ export const ToDo = () => {
           todos.map((item, i) => (
             <div
               key={i}
-              className={`p-2 border-2 border-neutral-900 shadow-md flex items-center justify-between rounded-md transition-all
+              className={`p-2 border-2 border-neutral-900 flex items-center justify-between rounded-md transition-all
               ${(edit || fetching) && "pointer-events-none opacity-70"}`}
             >
               <div

@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# Space
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **Space**, a comprehensive productivity web application designed to streamline your daily tasks and enhance your workflow. Space combines a variety of tools into a single, user-friendly platform to help you stay organized and efficient.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication**: Secure sign-up and login with Firebase.
+- **Data Storage**: All your data is safely stored in Firestore.
+- **Dashboard**:
+  - **Calendar**: View your schedule at a glance.
+  - **Weather**: Get real-time weather updates for your current location.
+  - **Random Quote**: Stay inspired with a random quote.
+  - **Random Song**: Discover new music from Spotify.
+- **To-Do List**: Create, manage, and track your tasks.
+- **Notes**: Write and organize your notes.
+- **Event Countdowns**: Set and view countdowns for important events.
+- **Expense Calculator**: Keep track of your expenses and manage your budget.
+- **Pomodoro Timer**: Improve your focus and productivity with the Pomodoro technique.
+- **Basic Counter**: Use a simple counter for any counting needs.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: A JavaScript library for building user interfaces.
+- **Vite**: A next-generation front-end tooling to build fast applications.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **Firebase**: Provides user authentication and Firestore database services.
 
-- Configure the top-level `parserOptions` property like this:
+## API References
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- [Weather API](https://www.weatherapi.com): Provides real-time weather data for any location.
+- [API Ninjas](https://api-ninjas.com): Offers a collection of APIs for various functionalities.
