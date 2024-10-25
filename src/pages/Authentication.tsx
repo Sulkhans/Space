@@ -21,7 +21,7 @@ export const Authentication = () => {
           <h1 className="text-white text-6xl font-semibold select-none mb-8 md:landscape:hidden">
             Space
           </h1>
-          <div className="flex justify-center items-center bg-white rounded-md p-5 md:landscae:bg-transparent md:landscape:w-1/2">
+          <div className="flex justify-center items-center bg-white rounded-md p-5 md:landscape:bg-transparent md:landscape:w-1/2">
             {isRegistered ? (
               <Signin
                 user={user}
