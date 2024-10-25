@@ -33,14 +33,14 @@ const Sidebar = ({ isHidden, setIsHidden, width, user }: SidebarProps) => {
   };
   return (
     <div
-      className={`fixed z-50 flex flex-col items-center w-48 px-2 py-4 gap-8 h-screen bg-dark text-white duration-1000 transition-all select-none 
-      ${isHidden && "-translate-x-52"}`}
+      className={`fixed z-50 flex flex-col items-center w-48 min-[1700px]:w-56 px-2 py-4 gap-8 h-screen bg-dark text-white duration-1000 transition-all select-none 
+      ${isHidden && "-translate-x-52 min-[1700px]:-translate-x-60"}`}
     >
       <h1 className="text-3xl font-semibold">Space</h1>
       <div className="flex flex-col items-center gap-2">
         <img
           src={user.photoURL ? user.photoURL : userDefault}
-          className="w-20 h-20 rounded-full fill-white"
+          className="size-20 min-[1700px]:size-24 rounded-full fill-white"
         />
         <p className="text-lg font-semibold">{auth.currentUser?.displayName}</p>
       </div>

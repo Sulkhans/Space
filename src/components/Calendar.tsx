@@ -76,7 +76,7 @@ const Calendar = () => {
           onClick={handleNext}
         />
       </div>
-      <div className="grid grid-rows-6 grid-cols-7 self-center gap-x-2 gap-y-0.5 place-items-center">
+      <div className="grid grid-rows-6 grid-cols-7 self-center gap-x-2 gap-y-0.5 place-items-center min-[1600px]:text-lg">
         {weekdays.map((day, i) => (
           <span key={i}>{day}</span>
         ))}

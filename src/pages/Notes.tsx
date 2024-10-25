@@ -198,9 +198,12 @@ export const Notes = () => {
                 <h1 className="text-2xl sm:text-3xl font-bold break-all">
                   {note.title}
                 </h1>
-                <p className="text-lg font-semibold leading-6 break-all">
-                  {note.text}
-                </p>
+                <textarea
+                  disabled
+                  maxLength={1000}
+                  value={note.text}
+                  className="text-lg font-semibold leading-6 w-full outline-none resize-none h-96 disabled:bg-transparent"
+                />
               </div>
             </>
           )

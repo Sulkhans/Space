@@ -2,15 +2,11 @@ import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Loading from "./Loading";
 import useAuthLoad from "../hooks/useAuthLoad";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 //@ts-ignore
 import Menu from "../assets/menu.svg?react";
 
-type LayoutProps = {
-  children: JSX.Element;
-};
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = () => {
   const { loading, user } = useAuthLoad();
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [width, setWidth] = useState<number>(window.innerWidth);
@@ -41,7 +37,7 @@ const Layout = ({ children }: LayoutProps) => {
       />
       <div
         className={`p-4 w-screen relative transition-all duration-1000
-        ${width >= 640 && !isHidden && "ml-48"} `}
+        ${width >= 640 && !isHidden && "ml-48 min-[1700px]:ml-56"} `}
       >
         <div className="flex w-full items-center justify-center mb-4">
           <Menu
@@ -52,7 +48,7 @@ const Layout = ({ children }: LayoutProps) => {
             {format(location.pathname)}
           </h1>
         </div>
-        {children}
+        <Outlet />
       </div>
     </div>
   ) : (

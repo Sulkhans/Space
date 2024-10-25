@@ -105,7 +105,7 @@ export const ToDo = () => {
           maxLength={100}
           ref={ref}
         />
-        {edit ? (
+        {edit !== undefined ? (
           <>
             <Button onClick={handleCancelEdit} text="Cancel" style="w-36" />
             <Button
@@ -128,7 +128,10 @@ export const ToDo = () => {
             <div
               key={i}
               className={`p-2 border-2 border-neutral-900 flex items-center justify-between rounded-md transition-all
-              ${(edit || fetching) && "pointer-events-none opacity-70"}`}
+              ${
+                (edit != undefined || fetching) &&
+                "pointer-events-none opacity-70"
+              }`}
             >
               <div
                 className="w-5 h-5 flex items-center justify-center rounded-md border-2 border-neutral-900 cursor-pointer absolute"

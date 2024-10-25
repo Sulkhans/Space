@@ -72,7 +72,7 @@ export const ExpenseTracker = () => {
               value={item.name}
               onChange={(e) => handleChange(i, e)}
               maxLength={30}
-              className="w-full pr-2"
+              className="w-full pr-2 placeholder:text-black"
             />
             <div>
               <span>$ </span>
@@ -83,7 +83,7 @@ export const ExpenseTracker = () => {
                 onChange={(e) => handleChange(i, e)}
                 onKeyDown={(e) => handlePrice(i, e)}
                 maxLength={10}
-                className="w-4/5"
+                className="w-4/5 placeholder:text-black"
               />
             </div>
             <div>
@@ -105,7 +105,7 @@ export const ExpenseTracker = () => {
         <div className="flex justify-between sm:mx-2">
           <button
             onClick={handleNew}
-            className="opacity-80 hover:opacity-100 transition-all"
+            className="opacity-100 hover:opacity-80 transition-all"
           >
             + Add more
           </button>
