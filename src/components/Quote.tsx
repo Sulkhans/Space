@@ -31,7 +31,7 @@ const Quote = () => {
       method: "GET",
       headers: {
         accept: "application/json",
-        "X-Api-Key": "ghDf6QPIaA0bOq8PgZkHrw==Te8OW6YgPTrvwAhV",
+        "X-Api-Key": import.meta.env.VITE_NINJAS_API_KEY,
       },
     };
     fetch(url, options)

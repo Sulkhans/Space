@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface forecastType {
   current: {
@@ -60,7 +60,8 @@ const Weather = () => {
 
   useEffect(() => {
     if (location) {
-      const url = `https://api.weatherapi.com/v1/forecast.json?key=8e91677bb9e941ccbbd115808231309&q=${location}&days=3&aqi=no&alerts=no`;
+      const key = import.meta.env.VITE_WEATHER_API_KEY;
+      const url = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${location}&days=3&aqi=no&alerts=no`;
       fetch(url)
         .then((res) => res.json())
         .then((json) => {
@@ -138,4 +139,4 @@ const Weather = () => {
   );
 };
 
-export default Weather;
+export default React.memo(Weather);

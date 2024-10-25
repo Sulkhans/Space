@@ -31,68 +31,42 @@ const router = createBrowserRouter([
     element: <Authentication />,
   },
   {
-    path: "/Space/dashboard",
-    element: (
-      <Layout>
-        <Dashboard />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/settings",
-    element: (
-      <Layout>
-        <Settings />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/to-do-list",
-    element: (
-      <Layout>
-        <ToDo />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/notes",
-    element: (
-      <Layout>
-        <Notes />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/expense-tracker",
-    element: (
-      <Layout>
-        <ExpenseTracker />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/pomodoro-clock",
-    element: (
-      <Layout>
-        <Pomodoro />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/countdown",
-    element: (
-      <Layout>
-        <Countdown />
-      </Layout>
-    ),
-  },
-  {
-    path: "/Space/counter",
-    element: (
-      <Layout>
-        <Counter />
-      </Layout>
-    ),
+    path: "/Space",
+    element: <Layout />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "to-do-list",
+        element: <ToDo />,
+      },
+      {
+        path: "notes",
+        element: <Notes />,
+      },
+      {
+        path: "expense-tracker",
+        element: <ExpenseTracker />,
+      },
+      {
+        path: "pomodoro-clock",
+        element: <Pomodoro />,
+      },
+      {
+        path: "countdown",
+        element: <Countdown />,
+      },
+      {
+        path: "counter",
+        element: <Counter />,
+      },
+    ],
   },
 ]);
 
