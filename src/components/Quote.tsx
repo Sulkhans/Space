@@ -10,23 +10,9 @@ const Quote = () => {
     quote: "",
     author: "",
   });
-  const category = [
-    "fear",
-    "failure",
-    "friendship",
-    "happiness",
-    "hope",
-    "inspirational",
-    "intelligence",
-    "learning",
-    "knowledge",
-    "success",
-  ];
 
   useEffect(() => {
-    const random = Math.floor(Math.random() * category.length);
-    const url =
-      "https://api.api-ninjas.com/v1/quotes?category=" + category[random];
+    const url = "https://api.api-ninjas.com/v1/quotes";
     const options = {
       method: "GET",
       headers: {
